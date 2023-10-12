@@ -7,28 +7,18 @@ class NetworkRequester {
 
   final Dio dio;
 
-  Future<Response<Map<String, dynamic>>> get(
+  Future<dynamic> get(
     String endpoint, {
-    Map<String, dynamic>? data,
-    bool isProtected = false,
+    bool isProtected = true,
     bool isFormData = false,
-    String? contentType,
   }) async {
-    try {
-      Response<Map<String, dynamic>> response =
-          await dio.get<Map<String, dynamic>>(
-        endpoint,
-        queryParameters: {},
-        options: Options(
-          method: 'GET',
-          extra: <String, dynamic>{},
-          contentType: isFormData ? 'multipart/form-data' : contentType,
-        ),
-      );
+    Response response = await dio.get(
+      endpoint,
+      options: Options(headers: {
+        'Content-Type': isFormData ? 'multipart/form-data' : 'application/json',
+      }),
+    );
 
-      return response;
-    } catch (e) {
-      rethrow;
-    }
+    return response.data;
   }
 }

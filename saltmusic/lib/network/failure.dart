@@ -17,7 +17,6 @@ class ExceptionHandler {
   static dynamic errorResponseData(error) {
     if (error is DioException) {
       if (error.response?.data != null) {
-        print('debug $error.response?.data');
         return error.response?.data;
       }
     }

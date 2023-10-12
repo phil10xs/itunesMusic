@@ -6,7 +6,7 @@ import 'package:saltmusic/network/failure.dart';
 class MusicRepositoryImpl implements MusicRepository {
   final MusicRemoteDS remoteDatasource;
 
-  MusicRepositoryImpl(this.remoteDatasource);
+  MusicRepositoryImpl({required this.remoteDatasource});
   @override
   Future<Either<Failure, dynamic>> getMusicList() async {
     try {

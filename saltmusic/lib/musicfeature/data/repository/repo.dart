@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:dartz/dartz.dart';
 import 'package:saltmusic/musicfeature/data/datasource/remote.dart';
 import 'package:saltmusic/musicfeature/domain/repo.dart';
@@ -13,8 +11,6 @@ class MusicRepositoryImpl implements MusicRepository {
   Future<Either<Failure, dynamic>> getMusicList() async {
     try {
       var response = await remoteDatasource.getMusicList();
-
-      print(response);
 
       return Right(response);
     } catch (e) {

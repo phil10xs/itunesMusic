@@ -98,3 +98,29 @@ class Failure {
 
   Failure({this.message, this.data});
 }
+
+class Result<T> {
+  T? data;
+  bool? error;
+  bool? loading;
+  int? response;
+  String? message;
+  dynamic errorData;
+  String? userMessage;
+  int? retryCount;
+  List<dynamic>? validationMessages;
+  bool? hasValidationMessages;
+
+  Result({
+    this.data,
+    this.error,
+    this.errorData,
+    this.hasValidationMessages,
+    this.message,
+    this.userMessage,
+    this.response,
+    this.retryCount,
+    this.loading,
+    this.validationMessages,
+  });
+}

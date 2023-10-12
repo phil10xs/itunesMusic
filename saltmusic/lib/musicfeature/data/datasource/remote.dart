@@ -11,8 +11,9 @@ class MusicRemoteDSImpl extends MusicRemoteDS {
   @override
   Future<dynamic> getMusicList() async {
     var response = await networkRequester.get(
-      'https://itunes.apple.com/us/rss/topalbums/limit=100/json',
+      '/us/rss/topalbums/limit=100/json',
     );
+
     return response;
   }
 }

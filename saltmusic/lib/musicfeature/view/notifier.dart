@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:saltmusic/di/locator.dart';
 import 'package:saltmusic/musicfeature/domain/repo.dart';
@@ -5,9 +8,16 @@ import 'package:saltmusic/network/failure.dart';
 
 class MusicNotifier extends ChangeNotifier {
   List<dynamic> _filteredMusic = [];
-  List<dynamic> get filteredBankList => _filteredMusic;
-  set setfilteredMusic(List<dynamic>? value) {
-    _filteredMusic = value!;
+  List<dynamic> get filteredMusic => _filteredMusic;
+  set setfilteredMusicX(List<dynamic> value) {
+    _filteredMusic = value;
+    notifyListeners();
+  }
+
+  List<dynamic> _listMusic = [];
+  List<dynamic> get listMusic => _listMusic;
+  set setlistMusic(List<dynamic> value) {
+    _listMusic = value;
     notifyListeners();
   }
 
@@ -25,24 +35,27 @@ class MusicNotifier extends ChangeNotifier {
         errorData: l.data,
       );
     }, (response) {
-      results = (response['entry']);
-
+      var data = jsonDecode(response);
+      //extra decode not found earlier
       result = Result(
         loading: false,
-        error: false,
-        data: response,
+        error: true,
+        data: data,
       );
-
-      setfilteredMusic = result.data['entry"'];
+      setlistMusic = result.data["feed"]["entry"];
+      setfilteredMusicX = result.data["feed"]["entry"];
     });
 
     return result;
   }
 
-  filteredMusic(List<dynamic> musicList, String value) {
-    setfilteredMusic = musicList
-        .where(
-            (element) => element["im:name"]["label"].toString().contains(value))
-        .toList();
+  filteredMusicX(String value) {
+    setfilteredMusicX = listMusic
+            .where((element) => element["im:name"]["label"]
+                .toString()
+                .toLowerCase()
+                .contains(value))
+            .toList() ??
+        [];
   }
 }

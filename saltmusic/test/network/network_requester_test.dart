@@ -1,39 +1,30 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:saltmusic/musicfeature/data/datasource/remote.dart';
 import 'package:saltmusic/network/network_requester.dart';
 
-class MockDio extends Mock implements Dio {}
+class MockNetworkRequester extends Mock implements NetworkRequester {}
 
 void main() {
-  late MockDio dio;
-  late NetworkRequester requester;
+  late MockNetworkRequester requester;
+  late MusicRemoteDSImpl remoteImpl;
 
-  setUp(() async {
-    dio = MockDio();
-
-    requester = NetworkRequester(dio: dio);
+  setUp(() {
+    requester = MockNetworkRequester();
+    remoteImpl = MusicRemoteDSImpl(networkRequester: requester);
   });
+  test('get itunes music remote', () async {
+    var url = '/us/rss/topalbums/limit=100/json';
 
-  test('get request', () async {
     // arrange
-    const String endpoint = '/your/endpoint';
-    final Map<String, Object> responseData = {"feed": {}};
+    Map<String, Object> res = {"feed": {}};
 
-    when(() => dio.get(
-          endpoint,
-          options: any(named: 'options'),
-        )).thenAnswer((_) async => Response<dynamic>(
-          requestOptions: RequestOptions(path: endpoint, method: 'GET'),
-          data: responseData,
-        ));
+    when(() => requester.get(url)).thenAnswer((_) async => res);
 
-    // Act
-    final res = await requester.get(
-      endpoint,
-    );
+    // act
+    var r = await remoteImpl.getMusicList();
 
-    // Assert
-    expect(res, responseData);
+    // assert
+    expect(r!['feed'], isMap);
   });
 }

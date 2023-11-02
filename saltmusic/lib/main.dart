@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:saltmusic/musicfeature/view/musicboard.dart';
 import 'package:saltmusic/musicfeature/view/notifier.dart';
-import 'package:saltmusic/musicfeature/view/searchtextfield.dart';
+
 import 'package:saltmusic/network/network_requester.dart';
 
 import 'di/locator.dart';

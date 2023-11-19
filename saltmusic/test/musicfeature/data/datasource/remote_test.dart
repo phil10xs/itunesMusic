@@ -13,8 +13,9 @@ void main() {
     requester = MockNetworkRequester();
     remoteImpl = MusicRemoteDSImpl(networkRequester: requester);
   });
+
   test('get itunes music remote', () async {
-    var url = 'https://itunes.apple.com/us/rss/topalbums/limit=100/json';
+    var url = '/us/rss/topalbums/limit=100/json';
 
     // arrange
     Map<String, Object> res = {"feed": {}};

@@ -6,10 +6,11 @@ import 'package:mocktail/mocktail.dart';
 
 import 'package:saltmusic/networkService.dart';
 
+//only needed for mocked unit testing
 class MockedDio extends Mock implements Dio {}
 
 void main() {
-  //initialize classes neededd to test request
+  //initialize classes needed to test request
   late NetworkServiceImpl mockedNSI;
   late MockedDio mockedDio;
 
@@ -18,6 +19,7 @@ void main() {
     mockedNSI = NetworkServiceImpl();
     mockedDio = MockedDio();
   });
+
   test('networkService-Mocked is successful', () async {
     Map<dynamic, dynamic> mockedData = {
       "feed": {

@@ -13,7 +13,6 @@ void main() {
     requester = MockNetworkRequester();
     remoteImpl = MusicRemoteDSImpl(networkRequester: requester);
   });
-
   test('get itunes music remote', () async {
     var url = '/us/rss/topalbums/limit=100/json';
 

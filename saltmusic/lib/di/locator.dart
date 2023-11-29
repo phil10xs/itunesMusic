@@ -23,6 +23,8 @@ Future<void> setUpDI() async {
 
   getIt.registerLazySingleton<NetworkRequester>(
       () => NetworkRequester(dio: getIt()));
+
+  //remote
   getIt.registerLazySingleton<MusicRemoteDS>(
       () => MusicRemoteDSImpl(networkRequester: getIt()));
 
@@ -33,7 +35,7 @@ Future<void> setUpDI() async {
     ),
   );
 
-  // / Notifier
+  //notifier
   getIt.registerLazySingleton<MusicNotifier>(
     () => MusicNotifier(),
   );
